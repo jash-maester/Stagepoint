@@ -29,6 +29,30 @@ final class RecentFilesStore {
     private static let defaultsKey = "RecentScripts"
     private static let maxEntries = 10
 
+    /// Bookmark options differ by platform:
+    /// - **macOS**: explicit security scope, marked read-only to match our
+    ///   `user-selected.read-only` entitlement (so `open()` doesn't fail
+    ///   trying to capture write scope we never had).
+    /// - **iOS / iPadOS**: no security-scope option exists; the SwiftUI
+    ///   `.fileImporter` (DocumentPicker) URLs are scope-managed by the
+    ///   system implicitly. A plain bookmark captures the file's identity
+    ///   and the system grants access on resolve.
+    private static let createOptions: URL.BookmarkCreationOptions = {
+        #if os(macOS)
+        return [.withSecurityScope, .securityScopeAllowOnlyReadAccess]
+        #else
+        return []
+        #endif
+    }()
+
+    private static let resolveOptions: URL.BookmarkResolutionOptions = {
+        #if os(macOS)
+        return .withSecurityScope
+        #else
+        return []
+        #endif
+    }()
+
     /// One file in the recents list.
     ///
     /// `bookmark` is `nil` if security-scoped bookmark creation failed at
@@ -53,12 +77,8 @@ final class RecentFilesStore {
     func add(_ url: URL) {
         let bookmark: Data?
         do {
-            // The read-only flag is required because our entitlement is
-            // `com.apple.security.files.user-selected.read-only`. Without
-            // it `.withSecurityScope` tries to capture read-write access
-            // and `open()` fails with EPERM under the sandbox.
             bookmark = try url.bookmarkData(
-                options: [.withSecurityScope, .securityScopeAllowOnlyReadAccess],
+                options: Self.createOptions,
                 includingResourceValuesForKeys: nil,
                 relativeTo: nil
             )
@@ -103,7 +123,7 @@ final class RecentFilesStore {
         do {
             let url = try URL(
                 resolvingBookmarkData: bookmark,
-                options: .withSecurityScope,
+                options: Self.resolveOptions,
                 relativeTo: nil,
                 bookmarkDataIsStale: &isStale
             )
@@ -133,7 +153,7 @@ final class RecentFilesStore {
             var isStale = false
             guard let url = try? URL(
                 resolvingBookmarkData: data,
-                options: .withSecurityScope,
+                options: Self.resolveOptions,
                 relativeTo: nil,
                 bookmarkDataIsStale: &isStale
             ) else { continue }
@@ -154,7 +174,7 @@ final class RecentFilesStore {
         let didAccess = url.startAccessingSecurityScopedResource()
         defer { if didAccess { url.stopAccessingSecurityScopedResource() } }
         guard let fresh = try? url.bookmarkData(
-            options: [.withSecurityScope, .securityScopeAllowOnlyReadAccess],
+            options: Self.createOptions,
             includingResourceValuesForKeys: nil,
             relativeTo: nil
         ) else { return }

@@ -5,6 +5,7 @@
 //  Created by Jashaswimalya Acharjee on 30/05/26.
 //
 
+#if os(macOS)
 import AppKit
 import SwiftUI
 
@@ -89,3 +90,4 @@ private final class WindowBridgeView: NSView {
         onWindowChange?(window)
     }
 }
+#endif

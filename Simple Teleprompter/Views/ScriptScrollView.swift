@@ -48,7 +48,7 @@ struct ScriptScrollView: View {
                         }
                         Spacer(minLength: geo.size.height * 0.6)
                     }
-                    .padding(.horizontal, geo.size.width * 0.17)
+                    .padding(.horizontal, geo.size.width * (appEnv.narrowMargins ? 0.08 : 0.17))
                     .padding(.top, geo.size.height * 0.4)
                 }
                 .scaleEffect(x: appEnv.isMirrored ? -1 : 1, y: 1)

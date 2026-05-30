@@ -7,16 +7,50 @@
 
 import SwiftUI
 
-/// Modal settings dialog opened with `?`.
+/// Modal settings dialog opened with `?` / ⌘, / a tap on the WPM pill.
 ///
-/// Phase 6 wires up the controls. Phase 7 will populate the tint theme
-/// picker; Phase 8 wires the Keynote-sync toggle; Phase 9 hooks up the
-/// pre-roll countdown.
+/// On macOS this is a fixed-size auxiliary sheet with a toolbar "Done"
+/// button. On iPadOS the same `Form` is wrapped in a `NavigationStack`
+/// (so the title and Done button render at the top), sized via
+/// `.presentationDetents`, and tinted with the app accent colour so
+/// the toggles and sliders don't fall back to iOS's default blue/green.
 struct SettingsSheet: View {
     @Environment(AppEnvironment.self) private var appEnv
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
+        #if os(macOS)
+        formView
+            .formStyle(.grouped)
+            .frame(width: 460, height: 560)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }
+                        .keyboardShortcut(.defaultAction)
+                }
+            }
+        #else
+        NavigationStack {
+            formView
+                .formStyle(.grouped)
+                .navigationTitle("Settings")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button("Done") { dismiss() }
+                    }
+                }
+        }
+        .presentationDetents([.medium, .large])
+        .presentationDragIndicator(.visible)
+        .tint(.accentColor)
+        #endif
+    }
+
+    /// The `Form` body is identical on both platforms — only the chrome
+    /// around it differs.
+    @ViewBuilder
+    private var formView: some View {
         @Bindable var bindable = appEnv
 
         Form {
@@ -67,6 +101,7 @@ struct SettingsSheet: View {
                     }
                 }
                 Toggle("Mirror text", isOn: $bindable.isMirrored)
+                Toggle("Narrow horizontal margins", isOn: $bindable.narrowMargins)
                 Picker("Tint theme", selection: $bindable.tintTheme) {
                     ForEach(TintTheme.allCases) { theme in
                         Text(theme.displayName).tag(theme)
@@ -91,14 +126,6 @@ struct SettingsSheet: View {
                             .frame(width: 44, alignment: .trailing)
                     }
                 }
-            }
-        }
-        .formStyle(.grouped)
-        .frame(width: 460, height: 560)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Done") { dismiss() }
-                    .keyboardShortcut(.defaultAction)
             }
         }
     }

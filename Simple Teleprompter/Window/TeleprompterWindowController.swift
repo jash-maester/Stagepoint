@@ -5,6 +5,7 @@
 //  Created by Jashaswimalya Acharjee on 30/05/26.
 //
 
+#if os(macOS)
 import AppKit
 import OSLog
 import SwiftUI
@@ -65,3 +66,4 @@ final class TeleprompterWindowController: NSWindowController {
         fatalError("init(coder:) is not supported")
     }
 }
+#endif

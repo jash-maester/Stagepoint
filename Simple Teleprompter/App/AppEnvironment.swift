@@ -51,6 +51,13 @@ final class AppEnvironment {
         didSet { UserDefaults.standard.set(opacityDropOff, forKey: Keys.opacityDropOff) }
     }
 
+    /// When on, the script's horizontal padding shrinks from 17% to 8%
+    /// of window width — useful on portrait iPad or a narrow Mac panel
+    /// where the default leaves text feeling cramped per-line.
+    var narrowMargins: Bool = false {
+        didSet { UserDefaults.standard.set(narrowMargins, forKey: Keys.narrowMargins) }
+    }
+
     /// Pre-roll countdown before playback.
     var preRollEnabled: Bool = false {
         didSet { UserDefaults.standard.set(preRollEnabled, forKey: Keys.preRollEnabled) }
@@ -100,6 +107,7 @@ final class AppEnvironment {
         if d.object(forKey: Keys.lineSpacing) != nil { lineSpacing = d.double(forKey: Keys.lineSpacing) }
         if d.object(forKey: Keys.peripheralOpacity) != nil { peripheralOpacity = d.double(forKey: Keys.peripheralOpacity) }
         if d.object(forKey: Keys.opacityDropOff) != nil { opacityDropOff = d.double(forKey: Keys.opacityDropOff) }
+        if d.object(forKey: Keys.narrowMargins) != nil { narrowMargins = d.bool(forKey: Keys.narrowMargins) }
         if d.object(forKey: Keys.preRollEnabled) != nil { preRollEnabled = d.bool(forKey: Keys.preRollEnabled) }
         if d.object(forKey: Keys.resumeEnabled) != nil { resumeEnabled = d.bool(forKey: Keys.resumeEnabled) }
         if d.object(forKey: Keys.autoResumeAfterScroll) != nil { autoResumeAfterScroll = d.bool(forKey: Keys.autoResumeAfterScroll) }
@@ -113,6 +121,7 @@ final class AppEnvironment {
         static let lineSpacing = "settings.lineSpacing"
         static let peripheralOpacity = "settings.peripheralOpacity"
         static let opacityDropOff = "settings.opacityDropOff"
+        static let narrowMargins = "settings.narrowMargins"
         static let preRollEnabled = "settings.preRollEnabled"
         static let resumeEnabled = "settings.resumeEnabled"
         static let autoResumeAfterScroll = "settings.autoResumeAfterScroll"

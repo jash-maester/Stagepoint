@@ -31,8 +31,10 @@ struct RootView: View {
         @Bindable var bindable = appEnv
 
         ZStack {
+            #if os(macOS)
             WindowAccessor()
                 .allowsHitTesting(false)
+            #endif
             GlassBackground()
 
             content
@@ -42,8 +44,10 @@ struct RootView: View {
                         .padding(.horizontal, 16)
                 }
 
+            #if os(macOS)
             MouseTracker(environment: appEnv)
                 .allowsHitTesting(false)
+            #endif
 
             if isDropTargeted {
                 RoundedRectangle(cornerRadius: 18)
@@ -59,6 +63,19 @@ struct RootView: View {
                 .transition(.opacity)
             }
         }
+        #if !os(macOS)
+        // macOS already has File → Open Script (⌘O), Open Recent submenu,
+        // and drag-and-drop. The on-screen pill would be redundant chrome
+        // there. iPadOS has no menu bar without a hardware keyboard, so
+        // the pill is essential.
+        .overlay(alignment: .topTrailing) {
+            if appEnv.engine.script != nil {
+                OpenScriptPill()
+                    .padding(.top, 12)
+                    .padding(.trailing, 16)
+            }
+        }
+        #endif
         .onChange(of: appEnv.engine.currentSentenceIndex) { _, _ in
             AppDelegate.shared?.savePositionForCurrentScript()
         }
@@ -109,27 +126,63 @@ struct RootView: View {
 
 private struct EmptyStatePrompt: View {
     var body: some View {
+        VStack(spacing: 14) {
+            Button {
+                AppDelegate.shared?.openScriptPicker()
+            } label: {
+                VStack(spacing: 12) {
+                    Image(systemName: "doc.text")
+                        .font(.system(size: 48, weight: .light))
+                    Text("Open Script")
+                        .font(.title2)
+                    Text("or drop a .md file here")
+                        .font(.callout)
+                        .foregroundStyle(.tertiary)
+                    Text("⌘O")
+                        .font(.caption2)
+                        .foregroundStyle(.tertiary)
+                }
+                .foregroundStyle(.secondary)
+                .padding(.horizontal, 32)
+                .padding(.vertical, 24)
+                .contentShape(.rect(cornerRadius: 16))
+            }
+            .buttonStyle(.plain)
+            .background(.regularMaterial, in: .rect(cornerRadius: 16))
+
+            Button {
+                AppDelegate.shared?.loadSampleScript()
+            } label: {
+                Text("Try the sample script")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .contentShape(.capsule)
+            }
+            .buttonStyle(.plain)
+        }
+    }
+}
+
+/// Discoverable "open another script" affordance shown at top-right when
+/// a script is already loaded. Especially important on iPadOS where
+/// there's no menu bar — ⌘O via external keyboard is not available to
+/// touch-only users. On macOS this complements the File → Open Script
+/// menu item.
+private struct OpenScriptPill: View {
+    var body: some View {
         Button {
             AppDelegate.shared?.openScriptPicker()
         } label: {
-            VStack(spacing: 12) {
-                Image(systemName: "doc.text")
-                    .font(.system(size: 48, weight: .light))
-                Text("Open Script")
-                    .font(.title2)
-                Text("or drop a .md file here")
-                    .font(.callout)
-                    .foregroundStyle(.tertiary)
-                Text("⌘O")
-                    .font(.caption2)
-                    .foregroundStyle(.tertiary)
-            }
-            .foregroundStyle(.secondary)
-            .padding(.horizontal, 32)
-            .padding(.vertical, 24)
-            .contentShape(.rect(cornerRadius: 16))
+            Image(systemName: "folder")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(.primary)
+                .frame(width: 36, height: 36)
+                .contentShape(.circle)
         }
         .buttonStyle(.plain)
-        .background(.regularMaterial, in: .rect(cornerRadius: 16))
+        .glassEffect(.regular, in: .circle)
+        .help("Open Script")
     }
 }
