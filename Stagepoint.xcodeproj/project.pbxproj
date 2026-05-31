@@ -12,13 +12,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C2ADD3C42FCABCF000A00F43 /* Simple Teleprompter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Simple Teleprompter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2ADD3C42FCABCF000A00F43 /* Stagepoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stagepoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C2ADD3C62FCABCF000A00F43 /* Simple Teleprompter */ = {
+		C2ADD3C62FCABCF000A00F43 /* Stagepoint */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Simple Teleprompter";
+			path = Stagepoint;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -39,7 +39,7 @@
 		C2ADD3BB2FCABCF000A00F43 = {
 			isa = PBXGroup;
 			children = (
-				C2ADD3C62FCABCF000A00F43 /* Simple Teleprompter */,
+				C2ADD3C62FCABCF000A00F43 /* Stagepoint */,
 				C2ADD3C52FCABCF000A00F43 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,7 +47,7 @@
 		C2ADD3C52FCABCF000A00F43 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C2ADD3C42FCABCF000A00F43 /* Simple Teleprompter.app */,
+				C2ADD3C42FCABCF000A00F43 /* Stagepoint.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,9 +55,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C2ADD3C32FCABCF000A00F43 /* Simple Teleprompter */ = {
+		C2ADD3C32FCABCF000A00F43 /* Stagepoint */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C2ADD3CF2FCABCF100A00F43 /* Build configuration list for PBXNativeTarget "Simple Teleprompter" */;
+			buildConfigurationList = C2ADD3CF2FCABCF100A00F43 /* Build configuration list for PBXNativeTarget "Stagepoint" */;
 			buildPhases = (
 				C2ADD3C02FCABCF000A00F43 /* Sources */,
 				C2ADD3C12FCABCF000A00F43 /* Frameworks */,
@@ -68,15 +68,15 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				C2ADD3C62FCABCF000A00F43 /* Simple Teleprompter */,
+				C2ADD3C62FCABCF000A00F43 /* Stagepoint */,
 			);
-			name = "Simple Teleprompter";
+			name = Stagepoint;
 			packageProductDependencies = (
 				C2ADD3D32FCABED300A00F43 /* Markdown */,
 				C2ADD3D62FCABEE900A00F43 /* KeyboardShortcuts */,
 			);
 			productName = "Simple Teleprompter";
-			productReference = C2ADD3C42FCABCF000A00F43 /* Simple Teleprompter.app */;
+			productReference = C2ADD3C42FCABCF000A00F43 /* Stagepoint.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -94,7 +94,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C2ADD3BF2FCABCF000A00F43 /* Build configuration list for PBXProject "Simple Teleprompter" */;
+			buildConfigurationList = C2ADD3BF2FCABCF000A00F43 /* Build configuration list for PBXProject "Stagepoint" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -112,7 +112,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C2ADD3C32FCABCF000A00F43 /* Simple Teleprompter */,
+				C2ADD3C32FCABCF000A00F43 /* Stagepoint */,
 			);
 		};
 /* End PBXProject section */
@@ -284,6 +284,7 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Stagepoint;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Simple Teleprompter advances slides in Keynote during presentations.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -335,6 +336,7 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Stagepoint;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Simple Teleprompter advances slides in Keynote during presentations.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -365,7 +367,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C2ADD3BF2FCABCF000A00F43 /* Build configuration list for PBXProject "Simple Teleprompter" */ = {
+		C2ADD3BF2FCABCF000A00F43 /* Build configuration list for PBXProject "Stagepoint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C2ADD3CD2FCABCF100A00F43 /* Debug */,
@@ -374,7 +376,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C2ADD3CF2FCABCF100A00F43 /* Build configuration list for PBXNativeTarget "Simple Teleprompter" */ = {
+		C2ADD3CF2FCABCF100A00F43 /* Build configuration list for PBXNativeTarget "Stagepoint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C2ADD3D02FCABCF100A00F43 /* Debug */,

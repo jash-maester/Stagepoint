@@ -1,4 +1,4 @@
-# Welcome to Simple Teleprompter
+# Welcome to Stagepoint
 
 This is the first slide of the demo script. The teleprompter scrolls smoothly through each sentence at a controlled pace. Word counts inform the dwell time so the highlight stays in step with natural speech.
 
