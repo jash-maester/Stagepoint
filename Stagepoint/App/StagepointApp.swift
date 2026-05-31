@@ -1,6 +1,6 @@
 //
-//  SimpleTeleprompterApp.swift
-//  Simple Teleprompter
+//  StagepointApp.swift
+//  Stagepoint
 //
 //  Created by Jashaswimalya Acharjee on 30/05/26.
 //
@@ -14,7 +14,7 @@ import OSLog
 import SwiftUI
 
 @main
-struct SimpleTeleprompterApp: App {
+struct StagepointApp: App {
     #if os(macOS)
     // On macOS the AppDelegate owns the AppKit `NSPanel` and reacts to
     // standard `NSApplicationDelegate` lifecycle events. SwiftUI's
@@ -371,7 +371,7 @@ final class AppDelegate: NSObject {
 #if os(macOS)
 extension AppDelegate: NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
-        Self.logger.info("Launching Simple Teleprompter")
+        Self.logger.info("Launching Stagepoint")
 
         NSApp.setActivationPolicy(.regular)
 
